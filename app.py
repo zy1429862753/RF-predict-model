@@ -98,18 +98,20 @@ VAR_SETTINGS = {
 
 
 # ==========================================
-# 3. Load Model
+3. Load Model (FIXED FOR CLOUD DEPLOYMENT)
 # ==========================================
 @st.cache_resource
 def load_model():
-    folder_path = r"F:/Python_work/articleagain"
+    # 🚨 移除绝对路径 F:/Python_work/articleagain
+    # 假设模型文件在 GitHub 仓库的根目录
     try:
-        model = joblib.load(f"{folder_path}/rf_model_deploy.pkl")
-        features = joblib.load(f"{folder_path}/feature_names.pkl")
+        model = joblib.load("rf_model_deploy.pkl")
+        features = joblib.load("feature_names.pkl")
         return model, features
     except Exception as e:
-        return None, list(VAR_SETTINGS.keys()) + CATEGORICAL_VARS
-
+        # 在云端显示加载失败的原因，帮助调试
+        st.error(f"Deployment Error: Failed to load model files. Please ensure rf_model_deploy.pkl and feature_names.pkl are in the GitHub repository root. Details: {e}")
+        return None, None
 
 model, feature_names = load_model()
 
@@ -252,5 +254,6 @@ with col_result:
             chart_placeholder.plotly_chart(fig, use_container_width=True)
 
             result_spacer.markdown("<div style='height: 30px'></div>", unsafe_allow_html=True)
+
 
         st.button("🔄 Reset Parameters", on_click=reset_inputs, use_container_width=True)
