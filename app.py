@@ -98,7 +98,7 @@ VAR_SETTINGS = {
 
 
 # ==========================================
-3. Load Model (FIXED FOR CLOUD DEPLOYMENT)
+# 3. Load Model (FIXED FOR CLOUD DEPLOYMENT)
 # ==========================================
 @st.cache_resource
 def load_model():
@@ -257,3 +257,4 @@ with col_result:
 
 
         st.button("🔄 Reset Parameters", on_click=reset_inputs, use_container_width=True)
+
