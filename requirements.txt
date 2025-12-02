@@ -1,0 +1,6 @@
+streamlit
+    pandas
+    numpy
+    plotly
+    joblib
+    scikit-learn  # 因为您使用了 joblib 加载了 sklearn 模型
